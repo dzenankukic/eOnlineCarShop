@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eOnlineCarShop", "eOnlineCarShop\eOnlineCarShop.csproj", "{7D0B9AB8-C124-4D2D-98D2-9CC8A70E0C95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOnlineCarShop", "eOnlineCarShop\eOnlineCarShop.csproj", "{7D0B9AB8-C124-4D2D-98D2-9CC8A70E0C95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_CS", "Data_CS\Data_CS.csproj", "{8D314860-6825-49AC-9DD3-6A7702161F29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7D0B9AB8-C124-4D2D-98D2-9CC8A70E0C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D0B9AB8-C124-4D2D-98D2-9CC8A70E0C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D0B9AB8-C124-4D2D-98D2-9CC8A70E0C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D314860-6825-49AC-9DD3-6A7702161F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D314860-6825-49AC-9DD3-6A7702161F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D314860-6825-49AC-9DD3-6A7702161F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D314860-6825-49AC-9DD3-6A7702161F29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
