@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-eOnlineCarShop-2F4849C6-622A-4B13-AE24-56B2750EEDE2</UserSecretsId>
+    <OutputType>Exe</OutputType>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

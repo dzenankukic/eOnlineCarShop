@@ -39,15 +39,24 @@ namespace Data_CS.Data
 
         }
         public DbSet<User> User { get; set; }
-
         public DbSet<City> City { get; set; }
-
         public DbSet<Gender> Gender { get; set; }
-
         public DbSet<Role> Role { get; set; }
+
+
         //public DbSet<Employee> Employee { get; set; }
         //public DbSet<Client> Client { get; set; }
         //public DbSet<Administrator> Administrator { get; set; }
+
+        public DbSet<Brand> Brand { get; set; }
+        public DbSet<Brand_Model> Brand_Model { get; set; }
+        public DbSet<Car> Car { get; set; }
+        public DbSet<CarModel> CarModel { get; set; }
+        public DbSet<Color> Color { get; set; }
+        public DbSet<DriveType> DriveType { get; set; }
+        public DbSet<Fuel> Fuel { get; set; }
+        public DbSet<Transmission> Transmission { get; set; }
+        public DbSet<VehicleType> VehicleType { get; set; }
 
     }
 }
