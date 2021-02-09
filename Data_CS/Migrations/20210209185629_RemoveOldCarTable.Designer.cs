@@ -4,14 +4,16 @@ using Data_CS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data_CS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210209185629_RemoveOldCarTable")]
+    partial class RemoveOldCarTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,76 +56,6 @@ namespace Data_CS.Migrations
                     b.HasIndex("CarModelID");
 
                     b.ToTable("Brand_Model");
-                });
-
-            modelBuilder.Entity("Data_CS.EF_Models.Car", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Ccm")
-                        .HasColumnType("real");
-
-                    b.Property<int>("ColorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOfManufacture")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DriveTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FuelID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Kilometre")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfDors")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NumberOfGears")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfSeats")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PowerKw")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PowerPS")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransmissionID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("WheelSize")
-                        .HasColumnType("real");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ColorID");
-
-                    b.HasIndex("DriveTypeID");
-
-                    b.HasIndex("FuelID");
-
-                    b.HasIndex("TransmissionID");
-
-                    b.HasIndex("VehicleTypeID");
-
-                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("Data_CS.EF_Models.CarModel", b =>
@@ -476,39 +408,6 @@ namespace Data_CS.Migrations
                     b.HasOne("Data_CS.EF_Models.CarModel", "CarModel")
                         .WithMany()
                         .HasForeignKey("CarModelID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Data_CS.EF_Models.Car", b =>
-                {
-                    b.HasOne("Data_CS.EF_Models.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.DriveType", "DriveType")
-                        .WithMany()
-                        .HasForeignKey("DriveTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.Fuel", "Fuel")
-                        .WithMany()
-                        .HasForeignKey("FuelID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.Transmission", "Transmission")
-                        .WithMany()
-                        .HasForeignKey("TransmissionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.VehicleType", "VehicleType")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

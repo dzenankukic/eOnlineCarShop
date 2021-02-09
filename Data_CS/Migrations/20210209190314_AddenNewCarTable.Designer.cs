@@ -4,14 +4,16 @@ using Data_CS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data_CS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210209190314_AddenNewCarTable")]
+    partial class AddenNewCarTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +68,9 @@ namespace Data_CS.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("BrandID")
+                        .HasColumnType("int");
+
                     b.Property<float>("Ccm")
                         .HasColumnType("real");
 
@@ -112,6 +117,8 @@ namespace Data_CS.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BrandID");
 
                     b.HasIndex("ColorID");
 
@@ -482,6 +489,12 @@ namespace Data_CS.Migrations
 
             modelBuilder.Entity("Data_CS.EF_Models.Car", b =>
                 {
+                    b.HasOne("Data_CS.EF_Models.Brand", "brand")
+                        .WithMany()
+                        .HasForeignKey("BrandID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Data_CS.EF_Models.Color", "Color")
                         .WithMany()
                         .HasForeignKey("ColorID")

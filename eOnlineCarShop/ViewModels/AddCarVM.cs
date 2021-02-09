@@ -1,28 +1,26 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Data_CS.EF_Models
+namespace eOnlineCarShop.ViewModels
 {
-    public class Car
+    public class AddCarVM
     {
-        public int ID { get; set; }
+        public int CarID { get; set; }
         public string Brand { get; set; }
-
-        //public int BrandID { get; set; }
-        //public Brand brand { get; set; }
-        public string Model { get; set; }
+        public string CarModel { get; set; }
         public int FuelID { get; set; }
-        public Fuel Fuel { get; set; }
+        public List<SelectListItem> FuelName { get; set; }
         public int VehicleTypeID { get; set; }
-        public VehicleType VehicleType { get; set; }
+        public List<SelectListItem> TypeName { get; set; }
         public int ColorID { get; set; }
-        public Color Color { get; set; }
+        public List<SelectListItem> Color { get; set; }
         public int DriveTypeID { get; set; }
-        public DriveType DriveType { get; set; }
+        public List<SelectListItem> DriveType { get; set; }
         public int TransmissionID { get; set; }
-        public Transmission Transmission { get; set; }
+        public List<SelectListItem> Transmission { get; set; }
         public int NumberOfSeats { get; set; }
         public int NumberOfDors { get; set; }
         public string NumberOfGears { get; set; }
@@ -32,6 +30,5 @@ namespace Data_CS.EF_Models
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
         public DateTime DateOfManufacture { get; set; }
-
     }
 }
