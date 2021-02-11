@@ -102,8 +102,10 @@ namespace eOnlineCarShop.Controllers
                             return RedirectToAction("Index", "Home");
                         //else if (await userManager.IsInRoleAsync(user, "Employee"))
                         //    return RedirectToAction("Index", "Employee");
-                        //else
-                        //    return RedirectToAction("Index", "Administrator");
+                        else if (await userManager.IsInRoleAsync(user, "Administrator"))
+                            return RedirectToAction("AdminHome", "Administrator");
+                        else 
+                            return RedirectToAction("Index", "Home");
                     }
 
                 ModelState.AddModelError("", "Sorry , try again!");
