@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model UserDetailVM
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <th scope="col">Surname</th>
+            <td>@Model.LastName</td>
+        </tr>
+        <tr>
+            <th scope="col">Email</th>
+            <td>@Model.Email</td>
+        <tr>
+            <th scope="col">Phone number</th>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <th scope="col">City</th>
+            <td>@Model.CityName</td>
+        </tr>
+
+    </thead>
+    <tbody>
+    <a class="btn btn-warning" asp-controller="Administrator" asp-action="EmployeeRemove" asp-route-id="@Model.Id">Remove</a>
+    </tbody>
+</table>
