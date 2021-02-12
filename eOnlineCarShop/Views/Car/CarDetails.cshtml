@@ -1,0 +1,52 @@
+﻿@model eOnlineCarShop.ViewModels.ShowCarDetailsVM
+
+@{
+    ViewData["Title"] = "CarDetails";
+}
+
+<style>
+    .images {
+        width: 310px;
+        float: left;
+    }
+
+    #product-details {
+        margin-left: 325px;
+        margin-top: 20px;
+    }
+    p{
+        border-bottom-style:groove;
+    }
+    #product-price {
+        font-weight: bold;
+    }
+</style>
+
+    <h1>@Model.Brand @Model.Model</h1>
+<div class="images">
+    <div id="product-img">
+        <img src="./Sliketest/‚proba.jpg" />
+        
+    </div>
+</div>
+<div id="product-details">
+    <p>Distance Traveled: @Model.Kilometre km</p>
+    <div id="product-price">
+        <p>Price: Po Dogovoru</p>
+    </div>
+    <p>Color: @Model.Color</p>
+    <p>WheelSize: @Model.WheelSize</p>
+    <p>DateOfManufacture: @Model.DateOfManufacture</p>
+    <p>ccm: @Model.Ccm</p>
+    <p>PowerKw: @Model.PowerKw</p>
+    <p>PowerPS: @Model.PowerPS</p>
+    <p>Drive Type: @Model.DriveType</p>
+    <p>Number Of Seats: @Model.NumberOfSeats</p>
+    <p>Number Of Dors: @Model.NumberOfDors</p>
+    <p>Number Of Gears: @Model.NumberOfGears</p>
+    <p>Fuel Type: @Model.Fuel</p>
+    <p>Transmission: @Model.Transmission</p>
+    <p>Vehicle Type: @Model.VehicleType</p>
+    <a class="btn btn-danger" asp-controller="Car" asp-action="" > Add to cart </a>
+
+</div>

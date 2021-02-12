@@ -5,15 +5,20 @@ using System.Threading.Tasks;
 
 namespace eOnlineCarShop.ViewModels
 {
-    public class ShowCarsVM
+    public class ShowCarDetailsVM
     {
-        public int CarId { get; set; }
+        public int ID { get; set; }
         public string Brand { get; set; }
-        public string CarModel { get; set; }
+        public string Model { get; set; }
+        public int FuelID { get; set; }
         public string Fuel { get; set; }
+        public int VehicleTypeID { get; set; }
         public string VehicleType { get; set; }
+        public int ColorID { get; set; }
         public string Color { get; set; }
+        public int DriveTypeID { get; set; }
         public string DriveType { get; set; }
+        public int TransmissionID { get; set; }
         public string Transmission { get; set; }
         public int NumberOfSeats { get; set; }
         public int NumberOfDors { get; set; }
@@ -23,6 +28,6 @@ namespace eOnlineCarShop.ViewModels
         public float WheelSize { get; set; }
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
-        public DateTime DateOfManufacture { get; set; }
+        public string DateOfManufacture { get; set; }
     }
 }

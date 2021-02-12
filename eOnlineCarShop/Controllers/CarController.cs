@@ -4,6 +4,7 @@ using eOnlineCarShop.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace eOnlineCarShop.Controllers
         {
             List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
             {
+                CarId=s.ID,
                 Brand = s.brand.BrandName,
                 CarModel = s.Model,
                 NumberOfSeats = s.NumberOfSeats,
@@ -138,6 +140,43 @@ namespace eOnlineCarShop.Controllers
 
             return Json(x);
 
+        }
+        public IActionResult CarDetails(int id)
+        {
+
+            var car = _db.Car
+                .Where(i => i.ID == id)
+                .SingleOrDefault();
+
+            //var car = _db.Car.Find(model.CarId);
+
+            var modelDetails = new ShowCarDetailsVM
+            {
+                ID = car.ID,
+                Brand = _db.Brand.Where(s=>s.ID ==car.BrandID ).Select(s=>s.BrandName).FirstOrDefault(),
+                Model = car.Model,
+                FuelID = car.FuelID,
+                Fuel = _db.Fuel.Where(s => s.ID == car.FuelID).Select(s => s.FuelName).FirstOrDefault(),
+                VehicleTypeID = car.VehicleTypeID,
+                VehicleType = _db.VehicleType.Where(s => s.ID == car.VehicleTypeID).Select(s => s.TypeName).FirstOrDefault(),
+                ColorID = car.ColorID,
+                Color = _db.Color.Where(s => s.ID == car.ColorID).Select(s => s.ColorName).FirstOrDefault(),
+                DriveTypeID = car.DriveTypeID,
+                DriveType = _db.DriveType.Where(s => s.ID == car.DriveTypeID).Select(s => s.DriveTypeName).FirstOrDefault(),
+                TransmissionID = car.TransmissionID,
+                Transmission = _db.Transmission.Where(s => s.ID == car.TransmissionID).Select(s => s.TransmissionType).FirstOrDefault(),
+                NumberOfSeats = car.NumberOfSeats,
+                NumberOfDors = car.NumberOfDors,
+                NumberOfGears = car.NumberOfGears,
+                PowerPS = car.PowerPS,
+                PowerKw = car.PowerKw,
+                WheelSize = car.WheelSize,
+                Ccm = car.Ccm,
+                Kilometre = car.Kilometre,
+                DateOfManufacture = car.DateOfManufacture.ToString("dd/MM.yyyy")
+            };
+
+            return View(modelDetails);
         }
     }
 }

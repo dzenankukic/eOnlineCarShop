@@ -26,9 +26,10 @@
                     Kilometre: @item.Kilometre<br />
                     Date: @item.DateOfManufacture<br />
                 </span>
-                <a href="#" class="btn btn-primary">Pregled</a>
-            </div>
-        </div>
+                <a class="btn btn-primary" asp-controller="Car" asp-action="CarDetails" asp-route-id="@item.CarId ">Pregled</a>
+</div>
+
+</div>
     }
 
 }
