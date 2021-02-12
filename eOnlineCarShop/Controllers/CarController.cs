@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace eOnlineCarShop.Controllers
@@ -152,7 +153,7 @@ namespace eOnlineCarShop.Controllers
 
             var modelDetails = new ShowCarDetailsVM
             {
-                ID = car.ID,
+                carID = car.ID,
                 Brand = _db.Brand.Where(s=>s.ID ==car.BrandID ).Select(s=>s.BrandName).FirstOrDefault(),
                 Model = car.Model,
                 FuelID = car.FuelID,
@@ -177,6 +178,38 @@ namespace eOnlineCarShop.Controllers
             };
 
             return View(modelDetails);
+        }
+        public IActionResult AddToCart(int id)
+        {
+            var car = _db.Car
+                .Where(i => i.ID == id)
+                .SingleOrDefault();
+
+            var claimsIdentiti = User.Identity as ClaimsIdentity;
+
+
+            if (claimsIdentiti != null)
+            {
+                var userIdClaim = claimsIdentiti.Claims
+                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim != null)
+                {
+                    var userIdValue = userIdClaim.Value;
+
+                    var item = new ShoppingCart
+                    {
+                        CarId = car.ID,
+                        Car = car,
+                        UserId = Int32.Parse(userIdValue),
+
+                    };
+                    _db.Add(item);
+                    _db.SaveChanges();
+                }
+            }
+
+            return Redirect("/Car/Index");
         }
     }
 }

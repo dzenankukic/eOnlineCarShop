@@ -7,7 +7,7 @@ namespace eOnlineCarShop.ViewModels
 {
     public class ShowCarDetailsVM
     {
-        public int ID { get; set; }
+        public int carID { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public int FuelID { get; set; }

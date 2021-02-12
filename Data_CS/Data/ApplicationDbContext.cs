@@ -56,6 +56,8 @@ namespace Data_CS.Data
         public DbSet<Fuel> Fuel { get; set; }
         public DbSet<Transmission> Transmission { get; set; }
         public DbSet<VehicleType> VehicleType { get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
 
     }
 }
