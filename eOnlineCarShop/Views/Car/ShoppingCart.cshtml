@@ -1,0 +1,24 @@
+﻿@using eOnlineCarShop.ViewModels
+@model List<ShoppingCartVM>
+@{
+    ViewData["Title"] = "ShoppingCart";
+}
+
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <div class="card w-75">
+            <div class="card-body">
+                <h5 class="card-title">@item.Model</h5>
+                <p class="card-text">Price: Not set</p>
+                <p class="card-text">Number of Dors: @item.NumberOfDors</p>
+                <a class="btn btn-primary "asp-controller="Car" asp-action="Remove" asp-route-id="@item.CartId">Remove</a>
+            </div>
+        </div>
+    }
+<a class="btn btn-danger" >Checkout</a>
+}
+else { 
+    <p>Your Cart is Empty</p>
+}

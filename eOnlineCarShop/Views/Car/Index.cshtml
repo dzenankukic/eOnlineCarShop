@@ -27,12 +27,12 @@
                     Date: @item.DateOfManufacture<br />
                 </span>
                 <a class="btn btn-primary" asp-controller="Car" asp-action="CarDetails" asp-route-id="@item.CarId ">Pregled</a>
-</div>
+            </div>
 
-</div>
+        </div>
     }
 
 }
 
-
 <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="AddCar">Dodaj vozilo</a>
+<a class="btn btn-danger" asp-area="" asp-controller="Car" asp-action="ShoppingCart">View My Shopping Cart</a>

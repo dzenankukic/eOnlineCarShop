@@ -24,7 +24,7 @@ namespace eOnlineCarShop.Controllers
         {
             List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
             {
-                CarId=s.ID,
+                CarId = s.ID,
                 Brand = s.brand.BrandName,
                 CarModel = s.Model,
                 NumberOfSeats = s.NumberOfSeats,
@@ -154,7 +154,7 @@ namespace eOnlineCarShop.Controllers
             var modelDetails = new ShowCarDetailsVM
             {
                 carID = car.ID,
-                Brand = _db.Brand.Where(s=>s.ID ==car.BrandID ).Select(s=>s.BrandName).FirstOrDefault(),
+                Brand = _db.Brand.Where(s => s.ID == car.BrandID).Select(s => s.BrandName).FirstOrDefault(),
                 Model = car.Model,
                 FuelID = car.FuelID,
                 Fuel = _db.Fuel.Where(s => s.ID == car.FuelID).Select(s => s.FuelName).FirstOrDefault(),
@@ -210,6 +210,48 @@ namespace eOnlineCarShop.Controllers
             }
 
             return Redirect("/Car/Index");
+        }
+        public IActionResult ShoppingCart()
+        {
+            var claimsIdentiti = User.Identity as ClaimsIdentity;
+
+            if (claimsIdentiti != null)
+            {
+                var userIdClaim = claimsIdentiti.Claims
+                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim != null)
+                {
+                    var userIdValue = userIdClaim.Value;
+                    List<ShoppingCartVM> cartModel = _db.ShoppingCart
+                        .Where(i => i.UserId == Int32.Parse(userIdValue))
+                        .Select(i => new ShoppingCartVM
+                        {
+                            CartId = i.Id,
+                            CarId = i.CarId,
+                            BrandId = i.Car.BrandID,
+                            Brand = _db.Brand.Where(s => s.ID == i.Car.BrandID).Select(s => s.BrandName).FirstOrDefault(),
+                            Model = i.Car.Model,
+                            ModelId = 1,
+                            Fuel = _db.Fuel.Where(s => s.ID == i.Car.FuelID).Select(s => s.FuelName).FirstOrDefault(),
+                            FuelId = 1,
+                            NumberOfDors = i.Car.NumberOfDors
+                        }).ToList();
+
+                    return View(cartModel);
+
+                }
+                //return View();
+            }
+            return View();
+        }
+        public IActionResult Remove(int id)
+        {
+            var shoppingCart = _db.ShoppingCart.Where(i => i.Id == id).FirstOrDefault();
+            _db.ShoppingCart.Remove(shoppingCart);
+            _db.SaveChanges();
+
+            return Redirect("/Car/ShoppingCart");
         }
     }
 }
