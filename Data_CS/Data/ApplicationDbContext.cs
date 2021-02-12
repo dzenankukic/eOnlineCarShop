@@ -48,8 +48,7 @@ namespace Data_CS.Data
         //public DbSet<Client> Client { get; set; }
         //public DbSet<Administrator> Administrator { get; set; }
 
-        public DbSet<Brand> Brand { get; set; }
-        public DbSet<Brand_Model> Brand_Model { get; set; }
+        public DbSet<Brand> Brand { get; set; }        
         public DbSet<Car> Car { get; set; }
         public DbSet<CarModel> CarModel { get; set; }
         public DbSet<Color> Color { get; set; }

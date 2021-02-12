@@ -8,10 +8,8 @@ namespace Data_CS.EF_Models
     public class Car
     {
         public int ID { get; set; }
-        public string Brand { get; set; }
-
-        //public int BrandID { get; set; }
-        //public Brand brand { get; set; }
+        public int BrandID { get; set; }
+        public Brand brand { get; set; }
         public string Model { get; set; }
         public int FuelID { get; set; }
         public Fuel Fuel { get; set; }

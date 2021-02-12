@@ -3,18 +3,22 @@
 @{
     ViewData["Title"] = "AddCar";
 }
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <h1>Dodaj te novo vozilo</h1>
 
 <form asp-action="Save">
     <div class="form-group">
         <div class="form-group">
             <label class="badge badge-pill badge-dark">Brand</label>
-            <input class="form-control form-control-lg" asp-for="Brand" />
+            <select id="SelectedBrand" class="form-control form-control-lg" asp-for="BrandID" asp-items="Model.Brendovi"></select>
         </div>
         <div class="form-group">
-            <label class="badge badge-pill badge-dark">Car model</label>
-            <input class="form-control form-control-lg" asp-for="CarModel" />
+
+            <label class="badge badge-pill badge-dark">Model</label>
+
+            <select id="itsModel" class="form-control form-control-lg" asp-for="CarModelID" asp-items="Model.Modeli">
+            </select>
+
         </div>
         <div class="form-group">
             <label class="badge badge-pill badge-dark">Fuel</label>
@@ -75,3 +79,64 @@
         <input class="btn btn-primary mb-2" type="submit" value="Save" />
     </div>
 </form>
+<script>
+    function SearchBrand(valueSelected) // pronalazi modele vozila za dati brend
+    {
+       $.ajax({
+                url: "@Url.Action("CarModelGetJson", "Car")",
+                type: "POST",
+                data:
+                {
+                    "BrandID": valueSelected
+                },
+                dataType: 'JSON',
+                success: function (data)
+                {
+                    console.log(data);
+                    var s = '<option value="-1">Odaberite model</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].id + '">' + data[i].nazivModela + '</option>';
+                    }
+                    $("#itsModel").html(s);
+
+                },
+                error: function (request, error) {
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+    }
+    const brandValue = $("#SelectedBrand").val();
+    SearchBrand(brandValue);
+        
+    $("#SelectedBrand").on("change", function () {
+        const valueSelected = this.value;
+        SearchBrand(valueSelected);
+    });
+
+    $("#itsModel").on("change", function () {
+
+        const valueSelected = $(this).val();
+        const BrandSelected = document.getElementById("SelectedBrand").value;
+
+            console.log(valueSelected, BrandSelected);
+            $.ajax({
+                url: "@Url.Action("CarModelGetJson", "Car")",
+                type: "POST",
+                data:
+                {
+                    "BrandID": BrandSelected,
+                    "CarModelID": valueSelected,
+                },
+                dataType: 'JSON',
+                success: function (data)
+                {
+                    console.log(data);
+                },
+                error: function (request, error) {
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+        });
+
+
+</script>

@@ -22,7 +22,7 @@ namespace eOnlineCarShop.Controllers
         {
             List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
             {
-                Brand = s.Brand,
+                Brand = s.brand.BrandName,
                 CarModel = s.Model,
                 NumberOfSeats = s.NumberOfSeats,
                 NumberOfDors = s.NumberOfDors,
@@ -43,9 +43,16 @@ namespace eOnlineCarShop.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult AddCar()
         {
             AddCarVM model = new AddCarVM();
+
+            model.Brendovi = _db.Brand.Select(b => new SelectListItem
+            {
+                Value = b.ID.ToString(),
+                Text = b.BrandName
+            }).ToList();
 
             model.FuelName = _db.Fuel.Select(f => new SelectListItem
             {
@@ -82,14 +89,16 @@ namespace eOnlineCarShop.Controllers
 
         public IActionResult Save(AddCarVM model)
         {
+            Brand tempBrand = _db.Brand.Find(model.BrandID);
             Car newCar = new Car
             {
-                Brand = model.Brand,
-                Model = model.CarModel,
+                brand = tempBrand,
+                BrandID = model.BrandID,
+                Model = _db.CarModel.Where(s => s.ID == model.CarModelID && s.BrandID == model.BrandID).Select(x => x.NazivModela).SingleOrDefault(),
                 Fuel = _db.Fuel.Where(s => s.ID == model.FuelID).SingleOrDefault(),
-                VehicleType = _db.VehicleType.Where(s=>s.ID==model.VehicleTypeID).SingleOrDefault(),
-                Color = _db.Color.Where(s=> s.ID==model.ColorID).SingleOrDefault(),
-                DriveType = _db.DriveType.Where(s=> s.ID==model.DriveTypeID).SingleOrDefault(),
+                VehicleType = _db.VehicleType.Where(s => s.ID == model.VehicleTypeID).SingleOrDefault(),
+                Color = _db.Color.Where(s => s.ID == model.ColorID).SingleOrDefault(),
+                DriveType = _db.DriveType.Where(s => s.ID == model.DriveTypeID).SingleOrDefault(),
                 Transmission = _db.Transmission.Find(model.TransmissionID),
                 NumberOfSeats = model.NumberOfSeats,
                 NumberOfDors = model.NumberOfDors,
@@ -101,11 +110,34 @@ namespace eOnlineCarShop.Controllers
                 Kilometre = model.Kilometre,
                 DateOfManufacture = model.DateOfManufacture
             };
-            
+
             _db.Add(newCar);
             _db.SaveChanges();
 
-            return Redirect(url:"/Car/Index");
+            return Redirect(url: "/Car/Index");
+        }
+
+        [HttpPost]
+        public IActionResult CarModelGetJson(int BrandID, int? CarModelID)
+        {
+
+            var x = _db.CarModel.Where(s => s.BrandID == BrandID).Select(x => new
+            {
+                ID = x.ID,
+                NazivModela = x.NazivModela
+            }).ToList();
+
+            if (CarModelID != null)
+            {
+                x = _db.CarModel.Where(s => s.BrandID == BrandID && s.ID == CarModelID).Select(x => new
+                {
+                    ID = x.ID,
+                    NazivModela = x.NazivModela
+                }).ToList();
+            }
+
+            return Json(x);
+
         }
     }
 }

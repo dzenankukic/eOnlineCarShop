@@ -9,8 +9,10 @@ namespace eOnlineCarShop.ViewModels
     public class AddCarVM
     {
         public int CarID { get; set; }
-        public string Brand { get; set; }
-        public string CarModel { get; set; }
+        public int BrandID { get; set; }
+        public List<SelectListItem> Brendovi { get; set; }
+        public int CarModelID { get; set; }
+        public List<SelectListItem> Modeli { get; set; }
         public int FuelID { get; set; }
         public List<SelectListItem> FuelName { get; set; }
         public int VehicleTypeID { get; set; }
