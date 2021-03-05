@@ -253,5 +253,41 @@ namespace eOnlineCarShop.Controllers
 
             return Redirect("/Car/ShoppingCart");
         }
+
+        public IActionResult RemoveCar()
+        {
+            List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
+            {
+                CarId = s.ID,
+                Brand = s.brand.BrandName,
+                CarModel = s.Model,
+                NumberOfSeats = s.NumberOfSeats,
+                NumberOfDors = s.NumberOfDors,
+                NumberOfGears = s.NumberOfGears,
+                PowerKw = s.PowerKw,
+                PowerPS = s.PowerPS,
+                Ccm = s.Ccm,
+                WheelSize = s.WheelSize,
+                Kilometre = s.Kilometre,
+                DateOfManufacture = s.DateOfManufacture,
+                Fuel = s.Fuel.FuelName,
+                VehicleType = s.VehicleType.TypeName,
+                Color = s.Color.ColorName,
+                DriveType = s.DriveType.DriveTypeName,
+                Transmission = s.Transmission.TransmissionType
+            }).ToList();
+
+            return View(model);
+        }
+
+        public IActionResult RemoveById(int id)
+        {
+            Car temp = _db.Car.Find(id);
+
+            _db.Remove(temp);
+            _db.SaveChanges();
+
+            return Redirect(url: "/Car/RemoveCar");
+        }
     }
 }
