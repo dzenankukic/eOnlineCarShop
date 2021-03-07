@@ -1,10 +1,11 @@
 ﻿@using eOnlineCarShop.ViewModels
 @model List<ShowCarsVM>
 @{
-    ViewData["Title"] = "Index";
+   Layout = null;
 }
 
 <h1>Vozila u ponudi</h1>
+
 
 @if (Model.Any())
 {
@@ -31,6 +32,4 @@
         </div>
     }
 }
-
-<a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="AddCar">Dodaj vozilo</a>
 <a class="btn btn-danger" asp-area="" asp-controller="Shop" asp-action="ShoppingCart">View My Shopping Cart</a>
