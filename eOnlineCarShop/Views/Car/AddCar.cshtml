@@ -76,6 +76,14 @@
             <label class="badge badge-pill badge-dark">Date of manufacture</label>
             <input class="form-control form-control-lg" asp-for="DateOfManufacture" />
         </div>
+        @*<div class="form-group"> Nastaviti haris
+            @using (@Html.BeginForm(new { enctype = "multipart/form-data" }))
+            {
+                <text>Select a file </text>
+                <input type="file" name="file" />
+                <input type="submit" value="Upload" />
+            }
+        </div>*@
         <input class="btn btn-primary mb-2" type="submit" value="Save" />
     </div>
 </form>

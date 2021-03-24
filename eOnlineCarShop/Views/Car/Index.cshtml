@@ -8,28 +8,31 @@
 
 @if (Model.Any())
 {
-    @foreach (var item in Model)
-    {
-        <div class="card" style="width: 19rem; display: inline-block;">
-            <div class="card-body">
-                <h5 class="card-title">@item.Brand @item.CarModel </h5>
-                <span>
-                    CMM: @item.Ccm
-                    Fuel: @item.Fuel
-                    Transmission: @item.Transmission<br />
-                    Colo: @item.Color<br />
-                    Drive type: @item.DriveType<br />
-                    Vehicle type: @item.VehicleType<br />
-                    Seates: @item.NumberOfSeats<br />
-                    Dors: @item.NumberOfDors<br />
-                    Gears: @item.NumberOfGears<br />
-                    Kilometre: @item.Kilometre<br />
-                    Date: @item.DateOfManufacture<br />
-                </span>
-                <a class="btn btn-primary" asp-controller="Shop" asp-action="CarDetails" asp-route-id="@item.CarId ">Pregled</a>
+    <div class="card-deck">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Brand @item.CarModel </h5>
+                    <span>
+                        CMM: @item.Ccm
+                        Fuel: @item.Fuel
+                        Transmission: @item.Transmission<br />
+                        Colo: @item.Color<br />
+                        Drive type: @item.DriveType<br />
+                        Vehicle type: @item.VehicleType<br />
+                        Seates: @item.NumberOfSeats<br />
+                        Dors: @item.NumberOfDors<br />
+                        Gears: @item.NumberOfGears<br />
+                        Kilometre: @item.Kilometre<br />
+                        Date: @item.DateOfManufacture<br />
+                    </span>
+                    <a class="btn btn-primary" asp-controller="Shop" asp-action="CarDetails" asp-route-id="@item.CarId ">Pregled</a>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 
 <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="AddCar">Dodaj vozilo</a>
