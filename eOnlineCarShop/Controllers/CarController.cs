@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -42,6 +43,19 @@ namespace eOnlineCarShop.Controllers
                 DriveType = s.DriveType.DriveTypeName,
                 Transmission = s.Transmission.TransmissionType
             }).ToList();
+
+            foreach (var item in model)
+            {
+                var carImageSET = _db.CarImage.Where(x => x.CarID == item.CarId).ToList();
+                var AllImages = new List<string>();
+
+                foreach (var slika in carImageSET)
+                {
+                    var ImageEntity = _db.Image.Where(i => i.ID == slika.ImageID).Select(i => i.PathToImage).FirstOrDefault();
+                    AllImages.Add(ImageEntity);
+                }
+                item.images = AllImages;
+            }
 
             return View(model);
         }
@@ -116,8 +130,45 @@ namespace eOnlineCarShop.Controllers
 
             _db.Add(newCar);
             _db.SaveChanges();
+            UcitajSlike(model, newCar.ID);
 
             return Redirect(url: "/Car/Index");
+        }
+
+        public IActionResult PregledVozila(int carID)
+        {
+            ShowCarsVM model = model = _db.Car.Where(x => x.ID == carID).Select(s => new ShowCarsVM
+            {
+                CarId = s.ID,
+                Brand = s.brand.BrandName,
+                CarModel = s.Model,
+                NumberOfSeats = s.NumberOfSeats,
+                NumberOfDors = s.NumberOfDors,
+                NumberOfGears = s.NumberOfGears,
+                PowerKw = s.PowerKw,
+                PowerPS = s.PowerPS,
+                Ccm = s.Ccm,
+                WheelSize = s.WheelSize,
+                Kilometre = s.Kilometre,
+                DateOfManufacture = s.DateOfManufacture,
+                Fuel = s.Fuel.FuelName,
+                VehicleType = s.VehicleType.TypeName,
+                Color = s.Color.ColorName,
+                DriveType = s.DriveType.DriveTypeName,
+                Transmission = s.Transmission.TransmissionType
+            }).FirstOrDefault();
+
+
+            var carImageSET = _db.CarImage.Where(x => x.CarID == carID).ToList();
+            var AllImages = new List<string>();
+
+            foreach (var slika in carImageSET)
+            {
+                AllImages.Add(_db.Image.Where(x => x.ID == slika.ID).Select(i => i.PathToImage).FirstOrDefault());
+            }
+            model.images = AllImages;
+
+            return View(model);
         }
 
         [HttpPost]
@@ -294,6 +345,44 @@ namespace eOnlineCarShop.Controllers
             _db.SaveChanges();
 
             return Redirect(url: "/Car/RemoveCar");
+        }
+
+        private void UcitajSlike(AddCarVM model, int carID)
+        {
+            List<string> jedinstvenaImenaSlika = new List<string>();
+
+            if (model.Images != null)
+            {
+                string folder = "wwwroot/Images/";
+                bool exists = System.IO.Directory.Exists(folder);
+                if (!exists)
+                    System.IO.Directory.CreateDirectory(folder);
+
+                foreach (var item in model.Images)
+                {
+                    string ekstenzija = Path.GetExtension(item.FileName);
+
+                    var filename = $"{Guid.NewGuid()}{ekstenzija}";
+
+                    item.CopyTo(new FileStream(folder + filename, FileMode.Create));
+
+                    var image = new Image();
+                    image.PathToImage = "/Images/" + filename;
+
+                    jedinstvenaImenaSlika.Add(image.PathToImage);
+
+                    _db.Add(image);
+                    _db.SaveChanges();
+
+                    _db.Add(new CarImage
+                    {
+                        CarID = carID,
+                        ImageID = image.ID
+                    });
+
+                    _db.SaveChanges();
+                }
+            }
         }
     }
 }

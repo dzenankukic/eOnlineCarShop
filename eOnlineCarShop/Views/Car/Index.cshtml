@@ -6,13 +6,17 @@
 
 <h1>Vozila u ponudi</h1>
 
+<hr />
 @if (Model.Any())
 {
     @foreach (var item in Model)
     {
-        <div class="card" style="width: 19rem; display: inline-block;">
+        <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">@item.Brand @item.CarModel </h5>
+
+                <img style="width: 20rem; height: auto;" src="@item.images.FirstOrDefault()" alt="slika" />
+
+                <h5 class="card-title" ;>@item.Brand @item.CarModel </h5>
                 <span>
                     CMM: @item.Ccm
                     Fuel: @item.Fuel
@@ -26,7 +30,8 @@
                     Kilometre: @item.Kilometre<br />
                     Date: @item.DateOfManufacture<br />
                 </span>
-                <a class="btn btn-primary" asp-controller="Shop" asp-action="CarDetails" asp-route-id="@item.CarId ">Pregled</a>
+                <a class="btn btn-primary" asp-controller="Car" asp-action="PregledVozila" asp-route-carID="@item.CarId">Pregled</a>
+                <a class="btn btn-primary" asp-controller="Shop" asp-action="CarDetails" asp-route-id="@item.CarId ">Details</a>
             </div>
         </div>
     }
