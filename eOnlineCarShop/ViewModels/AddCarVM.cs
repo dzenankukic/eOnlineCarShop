@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +34,8 @@ namespace eOnlineCarShop.ViewModels
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
         public DateTime DateOfManufacture { get; set; }
+
+        [BindProperty]
+        public List<IFormFile> Images { get; set; }
     }
 }

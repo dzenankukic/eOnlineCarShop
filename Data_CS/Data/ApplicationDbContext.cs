@@ -59,5 +59,8 @@ namespace Data_CS.Data
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
 
 
+        public DbSet<Image> Image { get; set; }
+        public DbSet<CarImage> CarImage { get; set; }
+
     }
 }

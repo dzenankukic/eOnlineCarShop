@@ -1,0 +1,31 @@
+﻿@using eOnlineCarShop.ViewModels
+@model ShowCarsVM
+@{
+    ViewData["Title"] = "Pregled Vozila";
+}
+
+<hr />
+<div class="card mb-3">
+    <div class="card-body">
+        @foreach (var item in Model.images)
+        {
+            <img style="width: 22rem; height: 20rem;" src="@item" alt="slika" />
+        }
+        <h5 class="card-title">@Model.Brand @Model.CarModel </h5>
+        <span>
+            CMM: @Model.Ccm
+            Fuel: @Model.Fuel
+            Transmission: @Model.Transmission<br />
+            Colo: @Model.Color<br />
+            Drive type: @Model.DriveType<br />
+            Vehicle type: @Model.VehicleType<br />
+            Seates: @Model.NumberOfSeats<br />
+            Dors: @Model.NumberOfDors<br />
+            Gears: @Model.NumberOfGears<br />
+            Kilometre: @Model.Kilometre<br />
+            Date: @Model.DateOfManufacture<br />
+        </span>
+    </div>
+</div>
+
+
