@@ -17,7 +17,7 @@ namespace eOnlineCarShop.Controllers
         {
             _db = db;
         }
-        public IActionResult ShopViewDiv()
+        public IActionResult ShopViewDiv(string txtunos)
         {
             List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
             {
@@ -40,7 +40,14 @@ namespace eOnlineCarShop.Controllers
                 Transmission = s.Transmission.TransmissionType
             }).ToList();
 
-            return View(model);
+            var shoplista = model.Where(s => txtunos == "" || txtunos == null || (s.Brand.ToLower().Contains(txtunos.ToLower())
+                           || s.CarModel.ToLower().Contains(txtunos.ToLower()))).ToList();
+
+            ViewData["txtUnosKey"] = txtunos;
+            ViewData["ShopListKey"] = shoplista;
+
+
+            return View();
         }
         public IActionResult CarDetails(int id)
         {
