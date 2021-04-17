@@ -351,9 +351,29 @@ namespace eOnlineCarShop.Controllers
 
         public IActionResult RemoveById(int id)
         {
-            Car temp = _db.Car.Find(id);
+            List<CarImage> carImgs = _db.CarImage.Where(x => x.CarID == id).ToList();
 
-            _db.Remove(temp);
+            List<Image> imgs = new List<Image>();
+            foreach (var item in carImgs)
+            {
+                imgs.Add(_db.Image.Where(x => x.ID == item.ID).FirstOrDefault());
+            }
+
+            Car car = _db.Car.Find(id);
+
+            foreach (var item in imgs)
+            {
+
+                if (System.IO.File.Exists("wwwroot" + item.PathToImage))
+                {
+                    System.IO.File.Delete("wwwroot" + item.PathToImage);
+                }
+            }
+
+            _db.RemoveRange(carImgs);
+            _db.RemoveRange(imgs);
+            _db.Remove(car);
+
             _db.SaveChanges();
 
             return Redirect(url: "/Car/RemoveCar");
