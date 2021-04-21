@@ -37,7 +37,7 @@ namespace eOnlineCarShop.Controllers
                 phonenumberconfirmed = s.PhoneNumberConfirmed
             }).ToList();
 
-            return Json(model);
+            return Ok(model);
         }
 
         /*
