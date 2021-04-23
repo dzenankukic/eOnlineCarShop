@@ -37,12 +37,15 @@ namespace eOnlineCarShop
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<User,Role>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-            
 
+            services.AddControllersWithViews();
+
+            services.AddRazorPages();
+
+            services.AddCors();
 
             //migracija folder
             //services.AddDbContext<ApplicationDbContext>(
@@ -83,9 +86,8 @@ namespace eOnlineCarShop
             });
 
             app.UseCors(
-              options => options.SetIsOriginAllowed(x => _ = true).AllowAnyMethod().AllowAnyHeader().AllowCredentials()
-          );
-
+               options => options.SetIsOriginAllowed(x => _ = true).AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+           );
         }
     }
 }
