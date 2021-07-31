@@ -357,7 +357,7 @@ namespace eOnlineCarShop.Controllers
 
             foreach (var item in carImgs)
             {
-                imgs.Add(_db.Image.Where(x => x.ID == item.ImageID).FirstOrDefault());
+                imgs.Add(_db.Image.Where(x => x.ID == item.ImageID).Single());
             }
 
             Car car = _db.Car.Find(id);
