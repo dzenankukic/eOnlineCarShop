@@ -14,6 +14,10 @@ using Microsoft.Extensions.Hosting;
 
 using Data_CS.Data;
 using Data_CS.EF_Models;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using eOnlineCarShop.Helper;
+using Microsoft.AspNetCore.Http;
 
 namespace eOnlineCarShop
 {
@@ -65,14 +69,30 @@ namespace eOnlineCarShop
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseExceptionHandler("/Home/Error");
+                //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseHsts();
+                //global error hundler angular
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async ctx =>
+                    {
+                        ctx.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = ctx.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            ctx.Response.AddAppError(error.Error.Message);
+                            await ctx.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
             }
             //app.UseHttpsRedirection(); --- redirection
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // Dohvatanje podataka za angular
 
             app.UseAuthentication();
             app.UseAuthorization();
