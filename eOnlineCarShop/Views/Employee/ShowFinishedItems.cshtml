@@ -1,21 +1,17 @@
 ﻿@using eOnlineCarShop.ViewModels
 @model List<ShowCarsVM>
-@{
-    ViewData["Title"] = "Index";
-}
 
-<h1>Vozila u ponudi</h1>
+
+
 <hr />
 @if (Model.Any())
 {
     @foreach (var item in Model)
     {
         <div class="card mb-3">
-            <div class="card-body">
-
-                <img style="width: 20rem; height: auto;" src="@item.images.FirstOrDefault()" alt="slika" />
-
-                <h5 class="card-title" ;>@item.Brand @item.CarModel </h5>
+            <div class="card-body">                
+                <h3 class="card-title" ;>@item.Brand @item.CarModel </h3>
+                <h5>Finished : @item.DateOfFinish.ToString("dd.MM.yyyy")</h5>
                 <span>
                     CMM: @item.Ccm
                     Fuel: @item.Fuel
@@ -27,20 +23,18 @@
                     Dors: @item.NumberOfDors<br />
                     Gears: @item.NumberOfGears<br />
                     Kilometre: @item.Kilometre<br />
-                    Date: @item.DateOfManufacture<br />
+                    Date: @item.DateOfManufacture.ToString("dd.MM.yyyy")<br />
                     PowerPS: @item.PowerPS<br />
                     PowerKw: @item.PowerKw<br />
                     Wheel size: @item.WheelSize<br />
-
-
                 </span>
-                <a class="btn btn-primary" asp-controller="Car" asp-action="PregledVozila" asp-route-carID="@item.CarId">Pregled</a>
-                <a class="btn btn-primary" asp-controller="Shop" asp-action="CarDetails" asp-route-id="@item.CarId ">Detalis</a>
             </div>
+            
         </div>
     }
 
 }
-
-<a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="AddCar">Dodaj vozilo</a>
-<a class="btn btn-danger" asp-area="" asp-controller="Shop" asp-action="ShoppingCart">View My Shopping Cart</a>
+else
+{
+<span> No finished items!</span>
+}

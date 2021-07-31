@@ -41,11 +41,32 @@ namespace eOnlineCarShop.Controllers
             return Ok(model);
         }
 
-        /*
-         Implementirati sl funkcije
-         
-        Update, Delete
+        public IActionResult ShowFinishedItems()
+        {
+            List<ShowCarsVM> model = _db.FinishedItems
+                .Select(s => new ShowCarsVM
+                {
+                    CarId = s.ID,
+                    Brand = s.brand.BrandName,
+                    CarModel = s.Model,
+                    NumberOfSeats = s.NumberOfSeats,
+                    NumberOfDors = s.NumberOfDors,
+                    NumberOfGears = s.NumberOfGears,
+                    PowerKw = s.PowerKw,
+                    PowerPS = s.PowerPS,
+                    Ccm = s.Ccm,
+                    WheelSize = s.WheelSize,
+                    Kilometre = s.Kilometre,
+                    DateOfManufacture = s.DateOfManufacture,
+                    Fuel = s.Fuel.FuelName,
+                    VehicleType = s.VehicleType.TypeName,
+                    Color = s.Color.ColorName,
+                    DriveType = s.DriveType.DriveTypeName,
+                    Transmission = s.Transmission.TransmissionType,
+                    DateOfFinish = s.DateOfFinish
+                }).ToList();
 
-         */
+            return View(model);
+        }
     }
 }

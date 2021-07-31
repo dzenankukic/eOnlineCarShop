@@ -4,14 +4,16 @@ using Data_CS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data_CS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210731210214_FinishedItems added")]
+    partial class FinishedItemsadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,9 +211,6 @@ namespace Data_CS.Migrations
                     b.Property<int>("ColorID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfFinish")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateOfManufacture")
                         .HasColumnType("datetime2");
 
@@ -219,9 +218,6 @@ namespace Data_CS.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("FuelID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Identification")
                         .HasColumnType("int");
 
                     b.Property<float>("Kilometre")

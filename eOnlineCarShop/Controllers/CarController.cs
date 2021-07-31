@@ -354,9 +354,10 @@ namespace eOnlineCarShop.Controllers
             List<CarImage> carImgs = _db.CarImage.Where(x => x.CarID == id).ToList();
 
             List<Image> imgs = new List<Image>();
+
             foreach (var item in carImgs)
             {
-                imgs.Add(_db.Image.Where(x => x.ID == item.ID).FirstOrDefault());
+                imgs.Add(_db.Image.Where(x => x.ID == item.ImageID).FirstOrDefault());
             }
 
             Car car = _db.Car.Find(id);
@@ -370,6 +371,29 @@ namespace eOnlineCarShop.Controllers
                 }
             }
 
+            FinishedItems finished = new FinishedItems
+            {
+                Identification = id,
+                BrandID = car.BrandID,
+                Model = car.Model,
+                FuelID = car.FuelID,
+                VehicleTypeID = car.VehicleTypeID,
+                ColorID = car.ColorID,
+                DriveTypeID = car.DriveTypeID,
+                TransmissionID = car.TransmissionID,
+                NumberOfSeats = car.NumberOfSeats,
+                NumberOfDors = car.NumberOfDors,
+                NumberOfGears = car.NumberOfGears,
+                PowerPS = car.PowerPS,
+                PowerKw = car.PowerKw,
+                WheelSize = car.WheelSize,
+                Ccm = car.Ccm,
+                Kilometre = car.Kilometre,
+                DateOfManufacture = car.DateOfManufacture,
+                DateOfFinish = System.DateTime.Now
+            };
+
+            _db.Add(finished);
             _db.RemoveRange(carImgs);
             _db.RemoveRange(imgs);
             _db.Remove(car);

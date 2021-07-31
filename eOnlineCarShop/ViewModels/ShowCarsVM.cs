@@ -24,6 +24,7 @@ namespace eOnlineCarShop.ViewModels
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
         public DateTime DateOfManufacture { get; set; }
+        public DateTime DateOfFinish { get; set; }
         public List<string> images { get; set; }
     }
 }
