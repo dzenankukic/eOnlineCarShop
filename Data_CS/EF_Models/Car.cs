@@ -30,6 +30,7 @@ namespace Data_CS.EF_Models
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
         public DateTime DateOfManufacture { get; set; }
+        public float? Price { get; set; }
 
     }
 }

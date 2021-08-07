@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Reports\Report1.rdlc" />
+    <None Remove="Report\Report1.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Reports\Report1.rdlc" />
+    <EmbeddedResource Include="Report\Report1.rdlc" />
   </ItemGroup>
 
   <ItemGroup>

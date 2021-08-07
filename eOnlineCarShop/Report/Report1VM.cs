@@ -1,13 +1,13 @@
-﻿using eOnlineCarShop.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TempReportApp
+namespace ReportDesignApp.Report
 {
     public class Report1VM
     {
+        public int CarId { get; set; }
         public string Brand { get; set; }
         public string CarModel { get; set; }
         public string Fuel { get; set; }
@@ -23,12 +23,11 @@ namespace TempReportApp
         public float WheelSize { get; set; }
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
-        public DateTime DateOfManufacture { get; set; }
-        public DateTime DateOfFinish { get; set; }
-
-        public static Report1VM Get()
+        public string DateOfManufacture { get; set; }
+        public string Price { get; set; }
+        public static List<Report1VM> Get()
         {
-            return new Report1VM { };
+            return new List<Report1VM> { };
         }
     }
 }
