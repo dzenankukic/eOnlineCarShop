@@ -29,7 +29,7 @@ namespace eOnlineCarShop
         }
 
         public IConfiguration Configuration { get; }
-
+     
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,19 +37,41 @@ namespace eOnlineCarShop
             //{
             //    options.SignIn.RequireConfirmedEmail = true;
             //});
-
+            services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
+           
             services.AddIdentity<User,Role>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
-
+            services.AddRazorPages().AddNewtonsoftJson();
             services.AddRazorPages();
+            /*            services
+        .AddMvc()
+              .AddJsonOptions(jsonOptions =>
+              {
+                  jsonOptions.JsonSerializerOptions.IgnoreNullValues = Newtonsoft.Json.NullValueHandling.Ignore;
+                /*  jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+              });*/
+            /*   .AddMvcCore(options =>
+               {
+                   options.RequireHttpsPermanent = true; // does not affect api requests
+                     options.RespectBrowserAcceptHeader = true; // false by default
+                                                                //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
 
-            services.AddCors();
+                     //remove these two below, but added so you know where to place them...
+
+               })
+               //.AddApiExplorer()
+               //.AddAuthorization()
+               .AddFormatterMappings()
+               //.AddCacheTagHelper()
+               //.AddDataAnnotations()
+               //.AddCors()
+               .AddJsonFormatters();
+                     services.AddCors();*/
 
             //migracija folder
             //services.AddDbContext<ApplicationDbContext>(
@@ -89,7 +111,7 @@ namespace eOnlineCarShop
             }
             //app.UseHttpsRedirection(); --- redirection
             app.UseStaticFiles();
-
+           
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // Dohvatanje podataka za angular
