@@ -71,7 +71,7 @@ namespace Data_CS.Migrations
                 column: "CarID",
                 principalTable: "Car",
                 principalColumn: "ID",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

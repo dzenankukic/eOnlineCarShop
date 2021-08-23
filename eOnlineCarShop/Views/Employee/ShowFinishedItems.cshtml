@@ -1,0 +1,40 @@
+﻿@using eOnlineCarShop.ViewModels
+@model List<ShowCarsVM>
+
+
+
+<hr />
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">                
+                <h3 class="card-title" ;>@item.Brand @item.CarModel </h3>
+                <h5>Finished : @item.DateOfFinish.ToString("dd.MM.yyyy")</h5>
+                <span>
+                    CMM: @item.Ccm
+                    Fuel: @item.Fuel
+                    Transmission: @item.Transmission<br />
+                    Colo: @item.Color<br />
+                    Drive type: @item.DriveType<br />
+                    Vehicle type: @item.VehicleType<br />
+                    Seates: @item.NumberOfSeats<br />
+                    Dors: @item.NumberOfDors<br />
+                    Gears: @item.NumberOfGears<br />
+                    Kilometre: @item.Kilometre<br />
+                    Date: @item.DateOfManufacture.ToString("dd.MM.yyyy")<br />
+                    PowerPS: @item.PowerPS<br />
+                    PowerKw: @item.PowerKw<br />
+                    Wheel size: @item.WheelSize<br />
+                </span>
+            </div>
+            
+        </div>
+    }
+
+}
+else
+{
+<span> No finished items!</span>
+}
