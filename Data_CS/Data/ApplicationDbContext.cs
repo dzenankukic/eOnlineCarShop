@@ -42,12 +42,6 @@ namespace Data_CS.Data
         public DbSet<City> City { get; set; }
         public DbSet<Gender> Gender { get; set; }
         public DbSet<Role> Role { get; set; }
-
-
-        //public DbSet<Employee> Employee { get; set; }
-        //public DbSet<Client> Client { get; set; }
-        //public DbSet<Administrator> Administrator { get; set; }
-
         public DbSet<Brand> Brand { get; set; }        
         public DbSet<Car> Car { get; set; }
         public DbSet<CarModel> CarModel { get; set; }
@@ -57,10 +51,10 @@ namespace Data_CS.Data
         public DbSet<Transmission> Transmission { get; set; }
         public DbSet<VehicleType> VehicleType { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
-
         public DbSet<FinishedItems> FinishedItems { get; set; }
         public DbSet<Image> Image { get; set; }
         public DbSet<CarImage> CarImage { get; set; }
+        public DbSet<ServicedCars> ServicedCars { get; set; }
 
     }
 }
