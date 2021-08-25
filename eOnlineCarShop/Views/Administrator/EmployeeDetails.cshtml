@@ -4,30 +4,38 @@
 @{
 }
 @model UserDetailVM
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <td>@Model.FirstName</td>
-        </tr>
-        <tr>
-            <th scope="col">Surname</th>
-            <td>@Model.LastName</td>
-        </tr>
-        <tr>
-            <th scope="col">Email</th>
-            <td>@Model.Email</td>
-        <tr>
-            <th scope="col">Phone number</th>
-            <td>@Model.PhoneNumber</td>
-        </tr>
-        <tr>
-            <th scope="col">City</th>
-            <td>@Model.CityName</td>
-        </tr>
+<div class="wraperdetail" style="background:#0D7377;padding-bottom:15%;">
+    <div class="text-center" style="padding-top:1.8%;">
+        <h2 class="text-light font-weight-bold mt-3" >Employee details</h2>
+    </div>
 
-    </thead>
-    <tbody>
-    <a class="btn btn-warning" asp-controller="Administrator" asp-action="EmployeeRemove" asp-route-id="@Model.Id">Remove</a>
-    </tbody>
-</table>
+        <table class="table w-75 mx-auto" style="color:white;font-family:Georgia;margin-top:8%;">
+            <thead  style="background-color:#323232;color:white;">
+                <tr>
+                    <th>Name</th>
+                    <td>@Model.FirstName</td>
+                </tr>
+                <tr>
+                    <th>Surname</th>
+                    <td>@Model.LastName</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>Phone number</th>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>@Model.CityName</td>
+                </tr>
+
+            </thead>
+        </table>
+        <div class="mx-auto text-center">
+            <a class="btn btn-dark" style="color:#14FFEC;" asp-controller="Administrator" asp-action="EmployeeList">Back to list</a>
+        </div>
+
+</div>

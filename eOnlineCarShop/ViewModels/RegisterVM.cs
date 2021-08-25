@@ -20,7 +20,7 @@ namespace eOnlineCarShop.ViewModels
 
         [DataType(DataType.Password)]
         [Display(Name = "Confrim Password")]
-        [Compare("Password", ErrorMessage = "Lozinke nisu iste!")]
+        [Compare("Password", ErrorMessage = "Try again!")]
         public string ConfirmPassword { get; set; }
 
         [Required]
@@ -38,7 +38,7 @@ namespace eOnlineCarShop.ViewModels
         public string Adress { get; set; }
 
         [Phone]
-        [Display(Name = "Broj telefona")]
+        [Display(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
 
         [DataType(DataType.DateTime)]

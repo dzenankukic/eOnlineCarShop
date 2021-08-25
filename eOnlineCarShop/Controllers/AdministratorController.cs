@@ -107,7 +107,7 @@ namespace eOnlineCarShop.Controllers
                 user.PhoneNumber = model.PhoneNumber;
                 user.GenderID = model.GenderID;
                 applicationDbContext.SaveChanges();
-                return RedirectToAction("EmployeeList", "Administrator");
+                return RedirectToAction("AdminHome", "Administrator");
             }
             nToastNotify.AddSuccessToastMessage("You update your profile date!");
             return View(model);
@@ -173,7 +173,7 @@ namespace eOnlineCarShop.Controllers
                 Gender= applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name })
                 .ToList()
             };
-            return PartialView(model);
+            return View(model);
         }
          public async Task<IActionResult>  EmployeeChangeSave(UserEditVM user)
         {

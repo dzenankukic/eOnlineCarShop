@@ -4,10 +4,14 @@
 @{
 }
 @model LoginVM
-<div class="content">
-
-    <div class="col-md-12">
-        <form id="prijavaF" method="post" class="">
+<style>
+    .content{
+        padding-bottom:10%;
+    }
+</style>
+<div class="content" style="background:#323232;border-radius:20px;">
+    <div class="col-md-12 mt-4">
+        <form method="post" class="mt-3 w-75 mx-auto">
             <h3 class="font-weight-bold text-center">LOGIN</h3>
 
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -29,8 +33,10 @@
                     </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success">Login</button>
-        </form>
+            <div class="mx-auto text-center">
+                <button type="submit" class="btn btn-dark" style="color: #14FFEC;">Login</button>
+       </div>
+                </form>
 
     </div>
 

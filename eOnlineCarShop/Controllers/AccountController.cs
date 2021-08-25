@@ -19,7 +19,7 @@ namespace eOnlineCarShop.Controllers
         private readonly SignInManager<User> signInManager;
         private ApplicationDbContext _applicationDbContext;
         private readonly RoleManager<Role> roleManager;
-        //private readonly IHostingEnvironment hostingEnvironment;
+    
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext,
             RoleManager<Role> roleManager/*, IHostingEnvironment hostingEnvironment*/)

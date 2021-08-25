@@ -6,11 +6,13 @@
 @model eOnlineCarShop.ViewModels.SMSMessageVM
 @using (Html.BeginForm())
 {
-    <div class="form-horizontal mx-auto w-75">
-        <h4>Kontaktirajte administratora SMS porukom: </h4>
+    <div class="form-horizontal mx-auto" style="background-color: #323232;color:#14FFEC;padding-bottom:10%">
+        <div class="mt-4">
+            <h4 class="w-75 mx-auto">Contact admin with SMS message: </h4>
+        </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        <div class="form-group w-75 mx-auto">
             @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
@@ -18,7 +20,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group w-75 mx-auto">
             @Html.LabelFor(model => model.ContentMsg, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ContentMsg, new { htmlAttributes = new { @class = "form-control" } })
@@ -27,8 +29,8 @@
         </div>
 
         <div class="form-group mx-auto" style="justify-items:center;">
-            <div class="col-md-offset-2">
-                <input type="submit" value="Pošalji SMS" class="btn btn-success" />
+            <div class="mx-auto w-75">
+                <input type="submit" value="Send message" class="btn btn-dark w-25" style="color: #14FFEC;" />
             </div>
         </div>
     </div>

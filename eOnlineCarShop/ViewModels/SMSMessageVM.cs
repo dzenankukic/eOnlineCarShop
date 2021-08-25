@@ -8,9 +8,9 @@ namespace eOnlineCarShop.ViewModels
 {
     public class SMSMessageVM
     {
-        [Display(Name = "Admin kontakt")]
+        [Display(Name = "Admin contact")]
         public string To { get; set; }
-        [Display(Name = "Text poruke")]
+        [Display(Name = "Text message")]
         public string ContentMsg { get; set; }
     }
 }
