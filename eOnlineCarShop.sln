@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eOnlineCarShop", "eOnlineCa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data_CS", "Data_CS\Data_CS.csproj", "{8D314860-6825-49AC-9DD3-6A7702161F29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempReporTDesign", "TempReporTDesign\TempReporTDesign.csproj", "{0AFB419B-612E-411E-AEB8-7E2E87EB1C4E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{8D314860-6825-49AC-9DD3-6A7702161F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D314860-6825-49AC-9DD3-6A7702161F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D314860-6825-49AC-9DD3-6A7702161F29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AFB419B-612E-411E-AEB8-7E2E87EB1C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AFB419B-612E-411E-AEB8-7E2E87EB1C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AFB419B-612E-411E-AEB8-7E2E87EB1C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AFB419B-612E-411E-AEB8-7E2E87EB1C4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
