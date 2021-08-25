@@ -45,7 +45,12 @@ namespace eOnlineCarShop
             services.AddIdentity<User,Role>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNToastNotifyNoty(new NToastNotify.NotyOptions()
+            {
+                ProgressBar = true,
+                Timeout = 5000 ,
+                Theme = "mint"
+            });
 
             services.AddRazorPages();
 
@@ -89,7 +94,7 @@ namespace eOnlineCarShop
             }
             //app.UseHttpsRedirection(); --- redirection
             app.UseStaticFiles();
-
+            app.UseNToastNotify();
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); // Dohvatanje podataka za angular

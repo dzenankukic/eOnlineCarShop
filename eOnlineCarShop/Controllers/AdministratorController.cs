@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,13 @@ namespace eOnlineCarShop.Controllers
         //private readonly SignInManager<User> signInManager;
         private ApplicationDbContext applicationDbContext;
         //private readonly RoleManager<Role> roleManager;
-
-        public AdministratorController(UserManager<User> _userManager,/* SignInManager<User> _signInManager*/ ApplicationDbContext _applicationDbContext)
+        private readonly IToastNotification nToastNotify;
+        public AdministratorController(UserManager<User> _userManager, IToastNotification _nToastNotify, ApplicationDbContext _applicationDbContext)
         {
             userManager = _userManager;
             //signInManager = _signInManager;
             applicationDbContext = _applicationDbContext;
-
+            nToastNotify = _nToastNotify;
         }
         public IActionResult AdminHome()
         {
@@ -69,6 +70,7 @@ namespace eOnlineCarShop.Controllers
                 Gender = applicationDbContext.Gender.Find(user.GenderID).Name,
                 Email = user.Email,
             };
+            nToastNotify.AddInfoToastMessage("Employee details about: " + model.FirstName);
             return View(model);
         }
         [HttpGet]
@@ -89,6 +91,7 @@ namespace eOnlineCarShop.Controllers
                 Gender = applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name }).ToList()
 
             };
+          
             return View(model);
         }
         [HttpPost]
@@ -106,6 +109,7 @@ namespace eOnlineCarShop.Controllers
                 applicationDbContext.SaveChanges();
                 return RedirectToAction("EmployeeList", "Administrator");
             }
+            nToastNotify.AddSuccessToastMessage("You update your profile date!");
             return View(model);
         }
 
@@ -119,6 +123,7 @@ namespace eOnlineCarShop.Controllers
                 genders = applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name })
                 .ToList()
             };
+         
             return View(model);
         }
         [HttpPost]
@@ -149,6 +154,7 @@ namespace eOnlineCarShop.Controllers
                 foreach (var err in result.Errors)
                     ModelState.AddModelError("", err.Description);
             }
+            nToastNotify.AddSuccessToastMessage("You succesufly add " + model.FirstName);
             return View(model);
         }
         public IActionResult EmployeeEdit (int id)
@@ -180,6 +186,7 @@ namespace eOnlineCarShop.Controllers
             user1.GenderID = user.GenderID;
    
             applicationDbContext.SaveChanges();
+            nToastNotify.AddSuccessToastMessage("You succesufly edit " + user1.FirstName);
             return RedirectToAction("EmployeeList", "Administrator");
         }
         public async Task<IActionResult> EmployeeRemove(int id)
@@ -187,6 +194,7 @@ namespace eOnlineCarShop.Controllers
             var user = applicationDbContext.User.Find(id);
             await userManager.RemoveFromRoleAsync(user, "Employee");
            await userManager.AddToRoleAsync(user, "Client");
+            nToastNotify.AddErrorToastMessage("You remove " + user.FirstName);
             return RedirectToAction("EmployeeList", "Administrator");
         }
     }
