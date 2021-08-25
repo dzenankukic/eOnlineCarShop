@@ -9,10 +9,12 @@
 
   <ItemGroup>
     <None Remove="Report\Report1.rdlc" />
+    <None Remove="Report\ReportEmployee.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Report\Report1.rdlc" />
+    <EmbeddedResource Include="Report\ReportEmployee.rdlc" />
   </ItemGroup>
 
   <ItemGroup>

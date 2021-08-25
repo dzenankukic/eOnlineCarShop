@@ -20,8 +20,6 @@ namespace Data_CS.EF_Models
         [ForeignKey("Gender")]
         public int GenderID { get; set; }
         public Gender Gender { get; set; }
-        //public Administrator Administrator { get; set; }
-        //public Employee Employee { get; set; }
-        //public Client Client { get; set; }
+  
     }
 }
