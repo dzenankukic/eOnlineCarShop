@@ -41,32 +41,46 @@ namespace eOnlineCarShop.Controllers
             return Ok(model);
         }
 
-        public IActionResult ShowFinishedItems()
+        public IActionResult ShowDeletedCars(int carID)
         {
-            List<ShowCarsVM> model = _db.FinishedItems
+            List<ShowCarsVM> model = _db.Car
+                .Where(w=> w.IsDeleted == true)
                 .Select(s => new ShowCarsVM
+            {
+                CarId = s.ID,
+                Brand = s.brand.BrandName,
+                CarModel = s.Model,
+                NumberOfSeats = s.NumberOfSeats,
+                NumberOfDors = s.NumberOfDors,
+                NumberOfGears = s.NumberOfGears,
+                PowerKw = s.PowerKw,
+                PowerPS = s.PowerPS,
+                Ccm = s.Ccm,
+                WheelSize = s.WheelSize,
+                Kilometre = s.Kilometre,
+                DateOfManufacture = s.DateOfManufacture,
+                Fuel = s.Fuel.FuelName,
+                VehicleType = s.VehicleType.TypeName,
+                Color = s.Color.ColorName,
+                DriveType = s.DriveType.DriveTypeName,
+                Transmission = s.Transmission.TransmissionType
+            }).ToList();
+
+            foreach (var item in model)
+            {
+                var carImageSET = _db.CarImage.Where(x => x.CarID == item.CarId).ToList();
+                var AllImages = new List<string>();
+
+                foreach (var slika in carImageSET)
                 {
-                    CarId = s.ID,
-                    Brand = s.brand.BrandName,
-                    CarModel = s.Model,
-                    NumberOfSeats = s.NumberOfSeats,
-                    NumberOfDors = s.NumberOfDors,
-                    NumberOfGears = s.NumberOfGears,
-                    PowerKw = s.PowerKw,
-                    PowerPS = s.PowerPS,
-                    Ccm = s.Ccm,
-                    WheelSize = s.WheelSize,
-                    Kilometre = s.Kilometre,
-                    DateOfManufacture = s.DateOfManufacture,
-                    Fuel = s.Fuel.FuelName,
-                    VehicleType = s.VehicleType.TypeName,
-                    Color = s.Color.ColorName,
-                    DriveType = s.DriveType.DriveTypeName,
-                    Transmission = s.Transmission.TransmissionType,
-                    DateOfFinish = s.DateOfFinish
-                }).ToList();
+                    var ImageEntity = _db.Image.Where(i => i.ID == slika.ImageID).Select(i => i.PathToImage).FirstOrDefault();
+                    AllImages.Add(ImageEntity);
+                }
+                item.images = AllImages;
+            }
 
             return View(model);
         }
+
     }
 }

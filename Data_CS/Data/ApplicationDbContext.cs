@@ -51,7 +51,6 @@ namespace Data_CS.Data
         public DbSet<Transmission> Transmission { get; set; }
         public DbSet<VehicleType> VehicleType { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
-        public DbSet<FinishedItems> FinishedItems { get; set; }
         public DbSet<Image> Image { get; set; }
         public DbSet<CarImage> CarImage { get; set; }
         public DbSet<ServicedCars> ServicedCars { get; set; }

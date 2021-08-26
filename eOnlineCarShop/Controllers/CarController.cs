@@ -23,7 +23,9 @@ namespace eOnlineCarShop.Controllers
         }
         public IActionResult Index()
         {
-            List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
+            List<ShowCarsVM> model = _db.Car
+                .Where(w=> w.IsDeleted == false)
+                .Select(s => new ShowCarsVM
             {
                 CarId = s.ID,
                 Brand = s.brand.BrandName,
@@ -41,7 +43,8 @@ namespace eOnlineCarShop.Controllers
                 VehicleType = s.VehicleType.TypeName,
                 Color = s.Color.ColorName,
                 DriveType = s.DriveType.DriveTypeName,
-                Transmission = s.Transmission.TransmissionType
+                Transmission = s.Transmission.TransmissionType,
+                Price = s.Price.ToString() + " KM"
             }).ToList();
 
             foreach (var item in model)
@@ -125,7 +128,9 @@ namespace eOnlineCarShop.Controllers
                 WheelSize = model.WheelSize,
                 Ccm = model.Ccm,
                 Kilometre = model.Kilometre,
-                DateOfManufacture = model.DateOfManufacture
+                DateOfManufacture = model.DateOfManufacture,
+                IsDeleted = false,
+                Price = model.Price
             };
 
             _db.Add(newCar);
@@ -157,126 +162,11 @@ namespace eOnlineCarShop.Controllers
 
         }
 
-        // 
-        // zakomentarisani dio je prebacen u user controller :)
-        /*
-        public IActionResult CarDetails(int id)
-        {
-
-            var car = _db.Car
-                .Where(i => i.ID == id)
-                .SingleOrDefault();
-
-            //var car = _db.Car.Find(model.CarId);
-
-            var modelDetails = new ShowCarDetailsVM
-            {
-                carID = car.ID,
-                Brand = _db.Brand.Where(s => s.ID == car.BrandID).Select(s => s.BrandName).FirstOrDefault(),
-                Model = car.Model,
-                FuelID = car.FuelID,
-                Fuel = _db.Fuel.Where(s => s.ID == car.FuelID).Select(s => s.FuelName).FirstOrDefault(),
-                VehicleTypeID = car.VehicleTypeID,
-                VehicleType = _db.VehicleType.Where(s => s.ID == car.VehicleTypeID).Select(s => s.TypeName).FirstOrDefault(),
-                ColorID = car.ColorID,
-                Color = _db.Color.Where(s => s.ID == car.ColorID).Select(s => s.ColorName).FirstOrDefault(),
-                DriveTypeID = car.DriveTypeID,
-                DriveType = _db.DriveType.Where(s => s.ID == car.DriveTypeID).Select(s => s.DriveTypeName).FirstOrDefault(),
-                TransmissionID = car.TransmissionID,
-                Transmission = _db.Transmission.Where(s => s.ID == car.TransmissionID).Select(s => s.TransmissionType).FirstOrDefault(),
-                NumberOfSeats = car.NumberOfSeats,
-                NumberOfDors = car.NumberOfDors,
-                NumberOfGears = car.NumberOfGears,
-                PowerPS = car.PowerPS,
-                PowerKw = car.PowerKw,
-                WheelSize = car.WheelSize,
-                Ccm = car.Ccm,
-                Kilometre = car.Kilometre,
-                DateOfManufacture = car.DateOfManufacture.ToString("dd/MM.yyyy")
-            };
-
-            return View(modelDetails);
-        }
-
-
-        public IActionResult AddToCart(int id)
-        {
-            var car = _db.Car
-                .Where(i => i.ID == id)
-                .SingleOrDefault();
-
-            var claimsIdentiti = User.Identity as ClaimsIdentity;
-
-
-            if (claimsIdentiti != null)
-            {
-                var userIdClaim = claimsIdentiti.Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-                if (userIdClaim != null)
-                {
-                    var userIdValue = userIdClaim.Value;
-
-                    var item = new ShoppingCart
-                    {
-                        CarId = car.ID,
-                        Car = car,
-                        UserId = Int32.Parse(userIdValue),
-
-                    };
-                    _db.Add(item);
-                    _db.SaveChanges();
-                }
-            }
-
-            return Redirect("/Car/Index");
-        }
-        public IActionResult ShoppingCart()
-        {
-            var claimsIdentiti = User.Identity as ClaimsIdentity;
-
-            if (claimsIdentiti != null)
-            {
-                var userIdClaim = claimsIdentiti.Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-                if (userIdClaim != null)
-                {
-                    var userIdValue = userIdClaim.Value;
-                    List<ShoppingCartVM> cartModel = _db.ShoppingCart
-                        .Where(i => i.UserId == Int32.Parse(userIdValue))
-                        .Select(i => new ShoppingCartVM
-                        {
-                            CartId = i.Id,
-                            CarId = i.CarId,
-                            BrandId = i.Car.BrandID,
-                            Brand = _db.Brand.Where(s => s.ID == i.Car.BrandID).Select(s => s.BrandName).FirstOrDefault(),
-                            Model = i.Car.Model,
-                            ModelId = 1,
-                            Fuel = _db.Fuel.Where(s => s.ID == i.Car.FuelID).Select(s => s.FuelName).FirstOrDefault(),
-                            FuelId = 1,
-                            NumberOfDors = i.Car.NumberOfDors
-                        }).ToList();
-
-                    return View(cartModel);
-
-                }
-                //return View();
-            }
-            return View();
-        }
-        public IActionResult Remove(int id)
-        {
-            var shoppingCart = _db.ShoppingCart.Where(i => i.Id == id).FirstOrDefault();
-            _db.ShoppingCart.Remove(shoppingCart);
-            _db.SaveChanges();
-
-            return Redirect("/Car/ShoppingCart");
-        }
-        */
         public IActionResult RemoveCar()
         {
-            List<ShowCarsVM> model = _db.Car.Select(s => new ShowCarsVM
+            List<ShowCarsVM> model = _db.Car
+                .Where(w=> w.IsDeleted == false)
+                .Select(s => new ShowCarsVM
             {
                 CarId = s.ID,
                 Brand = s.brand.BrandName,
@@ -315,7 +205,9 @@ namespace eOnlineCarShop.Controllers
 
         public IActionResult PregledVozila(int carID)
         {
-            ShowCarsVM model = model = _db.Car.Where(x => x.ID == carID).Select(s => new ShowCarsVM
+            ShowCarsVM model = model = _db.Car
+                .Where(w=> w.ID == carID)
+                .Select(s => new ShowCarsVM
             {
                 CarId = s.ID,
                 Brand = s.brand.BrandName,
@@ -333,7 +225,8 @@ namespace eOnlineCarShop.Controllers
                 VehicleType = s.VehicleType.TypeName,
                 Color = s.Color.ColorName,
                 DriveType = s.DriveType.DriveTypeName,
-                Transmission = s.Transmission.TransmissionType
+                Transmission = s.Transmission.TransmissionType,
+                Price = s.Price.ToString() + " KM"
             }).FirstOrDefault();
 
 
@@ -351,53 +244,8 @@ namespace eOnlineCarShop.Controllers
 
         public IActionResult RemoveById(int id)
         {
-            List<CarImage> carImgs = _db.CarImage.Where(x => x.CarID == id).ToList();
-
-            List<Image> imgs = new List<Image>();
-
-            foreach (var item in carImgs)
-            {
-                imgs.Add(_db.Image.Where(x => x.ID == item.ImageID).FirstOrDefault());
-            }
-
             Car car = _db.Car.Find(id);
-
-            foreach (var item in imgs)
-            {
-
-                if (System.IO.File.Exists("wwwroot" + item.PathToImage))
-                {
-                    System.IO.File.Delete("wwwroot" + item.PathToImage);
-                }
-            }
-
-            FinishedItems finished = new FinishedItems
-            {
-                Identification = id,
-                BrandID = car.BrandID,
-                Model = car.Model,
-                FuelID = car.FuelID,
-                VehicleTypeID = car.VehicleTypeID,
-                ColorID = car.ColorID,
-                DriveTypeID = car.DriveTypeID,
-                TransmissionID = car.TransmissionID,
-                NumberOfSeats = car.NumberOfSeats,
-                NumberOfDors = car.NumberOfDors,
-                NumberOfGears = car.NumberOfGears,
-                PowerPS = car.PowerPS,
-                PowerKw = car.PowerKw,
-                WheelSize = car.WheelSize,
-                Ccm = car.Ccm,
-                Kilometre = car.Kilometre,
-                DateOfManufacture = car.DateOfManufacture,
-                DateOfFinish = System.DateTime.Now
-            };
-
-            _db.Add(finished);
-            _db.RemoveRange(carImgs);
-            _db.RemoveRange(imgs);
-            _db.Remove(car);
-
+            car.IsDeleted = true;
             _db.SaveChanges();
 
             return Redirect(url: "/Car/RemoveCar");

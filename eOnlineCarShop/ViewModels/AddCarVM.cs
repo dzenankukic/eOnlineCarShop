@@ -33,6 +33,7 @@ namespace eOnlineCarShop.ViewModels
         public float WheelSize { get; set; }
         public float Ccm { get; set; }
         public float Kilometre { get; set; }
+        public float Price { get; set; }
         public DateTime DateOfManufacture { get; set; }
 
         [BindProperty]
