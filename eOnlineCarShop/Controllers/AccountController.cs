@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +20,16 @@ namespace eOnlineCarShop.Controllers
         private readonly SignInManager<User> signInManager;
         private ApplicationDbContext _applicationDbContext;
         private readonly RoleManager<Role> roleManager;
-    
+        private readonly IToastNotification nToastNotify;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext applicationDbContext,
-            RoleManager<Role> roleManager/*, IHostingEnvironment hostingEnvironment*/)
+            RoleManager<Role> roleManager, IToastNotification _nToastNotify)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             _applicationDbContext = applicationDbContext;
             this.roleManager = roleManager;
+            nToastNotify = _nToastNotify;
             //this.hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
@@ -35,7 +37,7 @@ namespace eOnlineCarShop.Controllers
         {
             var model = new RegisterVM
             {
-                city = _applicationDbContext.City.Select(x => new SelectListItem { Value = x.CityID.ToString(), Text = x.Name })
+                city = _applicationDbContext.City.Select(x =>  new SelectListItem { Value = x.CityID.ToString(), Text = x.Name })
                 .ToList(),
                 genders = _applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name })
                 .ToList()
@@ -70,6 +72,16 @@ namespace eOnlineCarShop.Controllers
                 foreach (var err in result.Errors)
                     ModelState.AddModelError("", err.Description);
             }
+            else
+            {
+                model = new RegisterVM
+                {
+                    city = _applicationDbContext.City.Select(x => new SelectListItem { Value = x.CityID.ToString(), Text = x.Name })
+          .ToList(),
+                    genders = _applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name })
+          .ToList()
+                };
+            }
             return View(model);
         }
     
@@ -78,6 +90,7 @@ namespace eOnlineCarShop.Controllers
     public async Task<IActionResult> Logout()
     {
         await signInManager.SignOutAsync();
+        nToastNotify.AddWarningToastMessage("You successfully logout!");
         return RedirectToAction("Index", "Home");
     }
     [HttpGet]
@@ -103,8 +116,10 @@ namespace eOnlineCarShop.Controllers
                         //else if (await userManager.IsInRoleAsync(user, "Employee"))
                         //    return RedirectToAction("Index", "Employee");
                         else if (await userManager.IsInRoleAsync(user, "Administrator"))
+                        { nToastNotify.AddSuccessToastMessage("You successfully login, wellcome admin" + model.Email);
                             return RedirectToAction("AdminHome", "Administrator");
-                        else 
+                        }
+                        else
                             return RedirectToAction("Index", "Home");
                     }
 

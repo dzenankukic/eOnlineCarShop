@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace eOnlineCarShop.ViewModels
     public class SMSMessageVM
     {
         [Display(Name = "Admin contact")]
-        public string To { get; set; }
+        public List<SelectListItem> To { get; set; }
         [Display(Name = "Text message")]
         public string ContentMsg { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

@@ -146,7 +146,7 @@ namespace eOnlineCarShop.Controllers
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                
+                    nToastNotify.AddSuccessToastMessage("You successfully add " + model.FirstName);
                     await userManager.AddToRoleAsync(user, "Employee");
                     return RedirectToAction("EmployeeList", "Administrator");
 
@@ -154,7 +154,17 @@ namespace eOnlineCarShop.Controllers
                 foreach (var err in result.Errors)
                     ModelState.AddModelError("", err.Description);
             }
-            nToastNotify.AddSuccessToastMessage("You succesufly add " + model.FirstName);
+            else
+            {
+                model = new RegisterVM
+                {
+                    city = applicationDbContext.City.Select(x => new SelectListItem { Value = x.CityID.ToString(), Text = x.Name })
+      .ToList(),
+                    genders = applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name })
+      .ToList()
+                };
+            }
+   
             return View(model);
         }
         public IActionResult EmployeeEdit (int id)
@@ -186,7 +196,7 @@ namespace eOnlineCarShop.Controllers
             user1.GenderID = user.GenderID;
    
             applicationDbContext.SaveChanges();
-            nToastNotify.AddSuccessToastMessage("You succesufly edit " + user1.FirstName);
+            nToastNotify.AddSuccessToastMessage("You successfully edit " + user1.FirstName);
             return RedirectToAction("EmployeeList", "Administrator");
         }
         public async Task<IActionResult> EmployeeRemove(int id)

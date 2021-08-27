@@ -6,12 +6,12 @@
 @model RegisterVM
     <style>
         .content {
-            padding-bottom: 10%;
+
         }
     </style>
     <div class="content" style="background:#323232;border-radius:20px;">
         <div class="col-md-12 mt-4">
-            <form id="formaR" method="post" enctype="multipart/form-data" class="w-75 mx-auto">
+            <form method="post"  class="w-75 mx-auto" asp-controller="Account" asp-action="Register">
                 <h3 class="font-weight-bold text-center">REGISTER</h3>
 
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -33,11 +33,11 @@
                 </div>
                 <div class="form-group text-center font-weight-bold">
                     <label>Gender : </label>
-                    <select asp-for="GenderID" asp-items="@Model.genders"><option>--</option></select>
+                    <select asp-for="GenderID" asp-items="@Model.genders"></select>
                 </div>
                 <div class="form-group text-center font-weight-bold">
                     <label>City : </label>
-                    <select asp-for="CityID" asp-items="@Model.city"><option>--</option></select>
+                    <select asp-for="CityID" asp-items="@Model.city"></select>
                 </div>
                 <div class="form-group text-center font-weight-bold">
                     <label asp-for="Adress"></label>
@@ -65,7 +65,7 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="mx-auto text-center">
-                    <button class="btn btn-dark" style="color: #14FFEC;">Register</button>
+                    <button class="btn btn-dark" style="color: #14FFEC;" type="submit">Register</button>
                 </div>
             </form>
         </div>
