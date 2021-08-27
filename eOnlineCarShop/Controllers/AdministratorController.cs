@@ -69,6 +69,7 @@ namespace eOnlineCarShop.Controllers
                 CityName = applicationDbContext.City.Find(user.CityID).Name,
                 Gender = applicationDbContext.Gender.Find(user.GenderID).Name,
                 Email = user.Email,
+
             };
             nToastNotify.AddInfoToastMessage("Employee details about: " + model.FirstName);
             return View(model);
@@ -97,9 +98,10 @@ namespace eOnlineCarShop.Controllers
         [HttpPost]
         public IActionResult AdminEdit(UserEditVM model)
         {
+            var user = applicationDbContext.User.Find(model.Id);
             if (ModelState.IsValid)
             {
-                var user = applicationDbContext.User.Find(model.Id);
+              
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.BirthDate = model.BirthDate;
@@ -107,9 +109,25 @@ namespace eOnlineCarShop.Controllers
                 user.PhoneNumber = model.PhoneNumber;
                 user.GenderID = model.GenderID;
                 applicationDbContext.SaveChanges();
+                nToastNotify.AddSuccessToastMessage("You update your profile date!");
                 return RedirectToAction("AdminHome", "Administrator");
             }
-            nToastNotify.AddSuccessToastMessage("You update your profile date!");
+            else
+            {
+                model = new UserEditVM
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    BirthDate = user.BirthDate,
+                    CityID = user.CityID,
+                    City = applicationDbContext.City.Select(x => new SelectListItem { Value = x.CityID.ToString(), Text = x.Name }).ToList(),
+                    PhoneNumber = user.PhoneNumber,
+                    GenderID = user.GenderID,
+                    Gender = applicationDbContext.Gender.Select(x => new SelectListItem { Value = x.GenderID.ToString(), Text = x.Name }).ToList()
+
+                };
+            }
             return View(model);
         }
 
@@ -185,19 +203,29 @@ namespace eOnlineCarShop.Controllers
             };
             return View(model);
         }
-         public async Task<IActionResult>  EmployeeChangeSave(UserEditVM user)
+         public IActionResult EmployeeChangeSave(UserEditVM user)
         {
-            var user1 = applicationDbContext.User.Find(user.Id);
-            user1.FirstName = user.FirstName;
-            user1.LastName = user.LastName;
-            user1.BirthDate = user.BirthDate;
-            user1.CityID = user.CityID;
-            user1.PhoneNumber = user.PhoneNumber;
-            user1.GenderID = user.GenderID;
-   
-            applicationDbContext.SaveChanges();
-            nToastNotify.AddSuccessToastMessage("You successfully edit " + user1.FirstName);
-            return RedirectToAction("EmployeeList", "Administrator");
+            if (ModelState.IsValid)
+            {
+                var user1 = applicationDbContext.User.Find(user.Id);
+                user1.FirstName = user.FirstName;
+                user1.LastName = user.LastName;
+                user1.BirthDate = user.BirthDate;
+                user1.CityID = user.CityID;
+                user1.PhoneNumber = user.PhoneNumber;
+                user1.GenderID = user.GenderID;
+
+                applicationDbContext.SaveChanges();
+                nToastNotify.AddSuccessToastMessage("You successfully edit " + user1.FirstName);
+                return RedirectToAction("EmployeeList", "Administrator");
+            }
+            else
+            {
+           
+                nToastNotify.AddErrorToastMessage("Try again!");
+                return RedirectToAction("EmployeeEdit", "Administrator", new { id = user.Id });
+            }
+    
         }
         public async Task<IActionResult> EmployeeRemove(int id)
         {

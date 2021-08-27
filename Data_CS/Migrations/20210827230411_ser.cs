@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data_CS.Migrations
 {
-    public partial class servis : Migration
+    public partial class ser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace Data_CS.Migrations
                     Description = table.Column<string>(nullable: true),
                     Recommendations = table.Column<string>(nullable: true),
                     Warnings = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
+                    Price = table.Column<float>(nullable: false),
                     CarID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

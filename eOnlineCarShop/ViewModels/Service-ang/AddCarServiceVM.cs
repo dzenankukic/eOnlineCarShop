@@ -15,7 +15,7 @@ namespace eOnlineCarShop.ViewModels.Service_ang
         public DateTime DateofServiceWarranty { get; set; }
         public DateTime DateOfServiced { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+        public float Price { get; set; }
         public string SelectedCar { get; set; }
         public List<SelectListItem> Cars { get; set; }
     }

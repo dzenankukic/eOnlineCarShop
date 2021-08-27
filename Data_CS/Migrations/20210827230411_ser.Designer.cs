@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_CS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210824164933_servis")]
-    partial class servis
+    [Migration("20210827230411_ser")]
+    partial class ser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,9 @@ namespace Data_CS.Migrations
 
                     b.Property<int>("FuelID")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<float>("Kilometre")
                         .HasColumnType("real");
@@ -198,84 +201,6 @@ namespace Data_CS.Migrations
                     b.ToTable("DriveType");
                 });
 
-            modelBuilder.Entity("Data_CS.EF_Models.FinishedItems", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrandID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Ccm")
-                        .HasColumnType("real");
-
-                    b.Property<int>("ColorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateOfFinish")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOfManufacture")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DriveTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FuelID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Identification")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Kilometre")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfDors")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NumberOfGears")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfSeats")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PowerKw")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PowerPS")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransmissionID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("WheelSize")
-                        .HasColumnType("real");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("BrandID");
-
-                    b.HasIndex("ColorID");
-
-                    b.HasIndex("DriveTypeID");
-
-                    b.HasIndex("FuelID");
-
-                    b.HasIndex("TransmissionID");
-
-                    b.HasIndex("VehicleTypeID");
-
-                    b.ToTable("FinishedItems");
-                });
-
             modelBuilder.Entity("Data_CS.EF_Models.Fuel", b =>
                 {
                     b.Property<int>("ID")
@@ -372,8 +297,8 @@ namespace Data_CS.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<string>("Recommendations")
                         .HasColumnType("nvarchar(max)");
@@ -687,45 +612,6 @@ namespace Data_CS.Migrations
                     b.HasOne("Data_CS.EF_Models.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Data_CS.EF_Models.FinishedItems", b =>
-                {
-                    b.HasOne("Data_CS.EF_Models.Brand", "brand")
-                        .WithMany()
-                        .HasForeignKey("BrandID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.DriveType", "DriveType")
-                        .WithMany()
-                        .HasForeignKey("DriveTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.Fuel", "Fuel")
-                        .WithMany()
-                        .HasForeignKey("FuelID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.Transmission", "Transmission")
-                        .WithMany()
-                        .HasForeignKey("TransmissionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_CS.EF_Models.VehicleType", "VehicleType")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
