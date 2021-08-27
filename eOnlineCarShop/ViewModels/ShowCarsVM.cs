@@ -26,5 +26,6 @@ namespace eOnlineCarShop.ViewModels
         public DateTime DateOfManufacture { get; set; }
         public DateTime DateOfFinish { get; set; }
         public List<string> images { get; set; }
+        public string Price { get; set; }
     }
 }
